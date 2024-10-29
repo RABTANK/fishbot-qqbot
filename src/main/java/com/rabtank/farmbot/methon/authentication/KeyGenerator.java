@@ -15,7 +15,6 @@ public class KeyGenerator {
 
     public KeyGenerator(String botSecret) {
         this.botSecret = botSecret;
-        generateKeys();
     }
     public void generateKeys() throws NoSuchAlgorithmException, NoSuchProviderException {
         byte[] seed = botSecret.getBytes(StandardCharsets.UTF_8);
