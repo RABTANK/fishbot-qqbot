@@ -1,24 +1,36 @@
+import json
 import ed25519
+import binascii
+from classes.request.RequestHandler import RequestHandler
+import static
 
+def generate_signature(appid, secret, body, signature_hex, signature_timestamp, plain_token):
+    # 如果secret不够长，则重复secret直到达到Ed25519种子大小
+    while len(secret) < 32:
+        secret += secret
+    secret = secret[:32]
 
-def generate_ed25519_key_pair(bot_secret):
-    # 确保seed长度至少为ed25519种子长度（应该是32字节）
-    seed = bot_secret
-    while len(seed) < 32:
-        seed = seed * 2  # 重复字符串直到达到所需长度
-    # 取种子的前32字节作为实际种子
-    seed = seed.encode()[:32]
-    # 使用种子生成密钥对
-    private_key = ed25519.SigningKey(seed)
-    public_key = private_key.get_verifying_key()
-    return public_key, private_key
+    # 使用secret作为种子生成私钥
+    signing_key = ed25519.SigningKey(secret.encode('utf-8'))
 
+    # 构造消息
+    message = f"{signature_timestamp}{plain_token}".encode('utf-8')
 
-# 输入的secret
-bot_secret = "naOC0ocQE3shWLAfffVLB1rhYPG7"
+    # 使用私钥对消息进行签名
+    signature = signing_key.sign(message)
 
-# 生成公钥和私钥
-public_key, private_key = generate_ed25519_key_pair(bot_secret)
+    # 将签名转换为十六进制字符串
+    signature_hex = binascii.hexlify(signature).decode('utf-8')
 
-print(list(public_key.to_bytes()))
-print(list(private_key.to_bytes()))
+    # 返回包含签名的响应对象
+    response = {
+        "plain_token": plain_token,
+        "signature": signature_hex
+    }
+    
+    return json.dumps(response)
+
+def build_callback_body(handler:RequestHandler):
+    signature=generate_signature(static.APPID,static.SECRET,handler.get_body(),handler.get_signature_hex(),handler.get_signature_timestamp(),handler.get_plain_token())
+    return signature
+
