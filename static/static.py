@@ -4,9 +4,9 @@ import asyncio
 import requests
 import time
 class Static:
-    APPID=102074147
-    SECRET="1RrHh8Z0RsJkCe6Y0SuNqJmFiBe8c6a4"
-    TOKEN="rhmCA4CLSCqAPDfc1Zo1ldMO0KlsjjhB"
+    APPID=1234567890
+    SECRET="asdfghjkl"
+    TOKEN="wertyuiop"
     WORKPATH=os.getcwd()
     
     def __init__(self) -> None:
