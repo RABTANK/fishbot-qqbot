@@ -1,4 +1,4 @@
 /fishbot-venv
 /.idea
 /__pycache__
-access.token.json
+static/static.py
