@@ -2,4 +2,4 @@
 /.idea
 /__pycache__
 static/static.py
-static/static.py
+static/access_token.json
