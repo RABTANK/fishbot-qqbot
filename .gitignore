@@ -1,3 +1,4 @@
-/farmbot-venv
+/fishbot-venv
 /.idea
-static.py
+/__pycache__
+access.token.json

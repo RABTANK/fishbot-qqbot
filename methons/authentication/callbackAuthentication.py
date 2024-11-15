@@ -1,8 +1,8 @@
 import json
 import ed25519
 import binascii
-from classes.request.RequestHandler import RequestHandler
-import static
+from classes.request.requestHandler import RequestHandler
+from static.static import Static
 
 def generate_signature(appid, secret, body, signature_hex, signature_timestamp, plain_token):
     # 如果secret不够长，则重复secret直到达到Ed25519种子大小
@@ -31,6 +31,6 @@ def generate_signature(appid, secret, body, signature_hex, signature_timestamp, 
     return json.dumps(response)
 
 def build_callback_body(handler:RequestHandler):
-    signature=generate_signature(static.APPID,static.SECRET,handler.get_body(),handler.get_signature_hex(),handler.get_signature_timestamp(),handler.get_plain_token())
+    signature=generate_signature(Static.APPID,Static.SECRET,handler.get_body(),handler.get_signature_hex(),handler.get_signature_timestamp(),handler.get_plain_token())
     return signature
 
