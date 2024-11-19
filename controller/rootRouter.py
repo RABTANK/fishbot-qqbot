@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from classes.request.requestHandler import RequestHandler
+from classes.requestHandler import RequestHandler
 import methons.authentication.callbackAuthentication as callbackauth
 
 root_bt = Blueprint("root", __name__)

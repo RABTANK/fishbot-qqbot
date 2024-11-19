@@ -1,7 +1,7 @@
 import json
 import ed25519
 import binascii
-from classes.request.requestHandler import RequestHandler
+from classes.requestHandler import RequestHandler
 from static.static import Static
 
 def generate_signature(appid, secret, body, signature_hex, signature_timestamp, plain_token):
