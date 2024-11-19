@@ -1,2 +1,2 @@
-def main(args:list)->str:
+def main(args: list) -> str:
     return f"echo:{args}"

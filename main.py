@@ -1,4 +1,5 @@
 import flask
+
 from api.rootApi import root_bt
 
 app = flask.Flask(__name__)

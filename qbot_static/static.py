@@ -1,7 +1,8 @@
 import json
 import os
-import requests
 import time
+
+import requests
 
 
 class Static:

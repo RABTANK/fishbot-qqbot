@@ -1,5 +1,7 @@
-from flask import request
 import json
+
+from flask import request
+
 
 class RequestHandler:
     def __init__(self):
@@ -31,7 +33,7 @@ class RequestHandler:
 
     def get_plain_token(self):
         return self.plain_token
-    
+
     def get_op(self):
         return self.body["op"]
 
