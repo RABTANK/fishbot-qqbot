@@ -2,7 +2,6 @@ import asyncio
 from flask import Blueprint, request
 from classes.commandHandler import CommandHandler
 from classes.messageHandler import GroupAtMessageHandler, create_message_handler
-from classes.requestHandler import RequestHandler
 from classes.messageSender import GroupMessageSender
 import utils.callbackAuthentication as callbackauth
 from qbot_static import Static
@@ -18,12 +17,12 @@ def callbackHandler(handler):
         mh.print_main_data()
         if mh.is_function_command():
             command_handler = CommandHandler(mh.message_raw, mh.user_union_id)
-            back=command_handler.execute_command()
-            msg_sender=GroupMessageSender(mh.group_id,0)
-            msg_sender.message=back
-            msg_sender.pre_message_id=mh.message_id
+            back = command_handler.execute_command()
+            msg_sender = GroupMessageSender(mh.group_id, 0)
+            msg_sender.message = back
+            msg_sender.pre_message_id = mh.message_id
             asyncio.run(msg_sender.send())
-            
+
     else:
         print("unknow command")
 

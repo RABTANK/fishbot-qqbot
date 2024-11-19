@@ -20,9 +20,7 @@ class GroupMessageSender:
         sta = Static()
         url = sta.API_BASE_URL + f"/v2/groups/{self.group}/messages"
         access_token = await sta.get_access_token()
-        headers = {
-            "Authorization": f"QQBot {access_token}"
-        }
+        headers = {"Authorization": f"QQBot {access_token}"}
         data = {"content": self.message, "msg_type": self.msg_type}
 
         if self.msg_type == 2:  # markdown
@@ -31,9 +29,9 @@ class GroupMessageSender:
             data["ark"] = self.ark
         elif self.msg_type == 7:  # media 富媒体
             data["media"] = self.media
-            
+
         if self.pre_message_id is not None:
-            data.update({"msg_id":self.pre_message_id})
+            data.update({"msg_id": self.pre_message_id})
 
         try:
             response = requests.post(url, headers=headers, json=data)
