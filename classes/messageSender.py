@@ -13,7 +13,7 @@ logging.basicConfig(
     handlers=[
         logging.FileHandler(
             os.path.join(
-                Static.WORKPATH, (f"logs/err/{datetime.now().strftime('%Y%m%d')}.logs")
+                Static.WORKPATH, (f"logs/{datetime.now().strftime('%Y%m%d')}.err.log")
             )
         ),
         logging.StreamHandler(),

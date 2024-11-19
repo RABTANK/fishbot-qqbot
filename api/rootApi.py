@@ -1,25 +1,28 @@
 import asyncio
 import logging
 from datetime import datetime
-
 from flask import Blueprint
-
 import methons.authentication.callbackAuthentication as callbackauth
 from classes.commandHandler import CommandHandler
 from classes.messageHandler import GroupAtMessageHandler, create_message_handler
 from classes.messageSender import GroupMessageSender
 from classes.requestHandler import RequestHandler
 from qbot_static import Static
+import os
 
 root_bt = Blueprint("root", __name__)
-logging.basicConfig(level=logging.ERROR,
-                    format='%(asctime)s - %(levelname)s - %(message)s',
-                    handlers=[
-                        logging.FileHandler(
-                            os.path.join(Static.WORKPATH, (f"logs/err/{datetime.now().strftime('%Y%m%d')}.logs"))),
-                        logging.StreamHandler()
-                    ])
-
+logging.basicConfig(
+    level=logging.ERROR,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler(
+            os.path.join(
+                Static.WORKPATH, (f"logs/{datetime.now().strftime('%Y%m%d')}.err.log")
+            )
+        ),
+        logging.StreamHandler(),
+    ],
+)
 
 def callbackHandler(handler):
     mh = create_message_handler(handler.get_body())
