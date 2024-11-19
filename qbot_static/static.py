@@ -1,17 +1,17 @@
 import json
 import os
-import asyncio
 import requests
 import time
 
 
 class Static:
     WORKPATH = os.getcwd()
-    static_path = os.path.join(WORKPATH, "config.json")
-    static_data = json.load((open(static_path, "r")))
-    APPID = static_data["APPID"]
-    SECRET = static_data["SECRET"]
-    TOKEN = static_data["TOKEN"]
+    STATIC_PATH = os.path.join(WORKPATH, "config.json")
+    STATIC_DATA = json.load((open(STATIC_PATH, "r")))
+    APPID = STATIC_DATA["APPID"]
+    SECRET = STATIC_DATA["SECRET"]
+    TOKEN = STATIC_DATA["TOKEN"]
+    API_BASE_URL = "https://api.sgroup.qq.com"
 
     def __init__(self) -> None:
         pass

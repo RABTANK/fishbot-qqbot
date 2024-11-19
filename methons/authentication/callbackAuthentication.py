@@ -2,7 +2,7 @@ import json
 import ed25519
 import binascii
 from classes.requestHandler import RequestHandler
-from static.static import Static
+from qbot_static import Static
 
 def generate_signature(appid, secret, body, signature_hex, signature_timestamp, plain_token):
     # 如果secret不够长，则重复secret直到达到Ed25519种子大小
