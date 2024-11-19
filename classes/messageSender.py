@@ -7,13 +7,18 @@ import requests
 from qbot_static import Static
 
 # 配置日志记录器
-logging.basicConfig(level=logging.ERROR,
-                    format='%(asctime)s - %(levelname)s - %(message)s',
-                    handlers=[
-                        logging.FileHandler(
-                            os.path.join(Static.WORKPATH, (f"logs/err/{datetime.now().strftime('%Y%m%d')}.logs"))),
-                        logging.StreamHandler()
-                    ])
+logging.basicConfig(
+    level=logging.ERROR,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler(
+            os.path.join(
+                Static.WORKPATH, (f"logs/err/{datetime.now().strftime('%Y%m%d')}.logs")
+            )
+        ),
+        logging.StreamHandler(),
+    ],
+)
 
 
 class GroupMessageSender:
@@ -32,9 +37,7 @@ class GroupMessageSender:
         sta = Static()
         url = sta.API_BASE_URL + f"/v2/groups/{self.group}/messages"
         access_token = await sta.get_access_token()
-        headers = {
-            "Authorization": f"QQBot {access_token}"
-        }
+        headers = {"Authorization": f"QQBot {access_token}"}
         data = {"content": self.message, "msg_type": self.msg_type}
 
         if self.msg_type == 2:  # markdown

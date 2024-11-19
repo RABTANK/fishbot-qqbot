@@ -1,8 +1,6 @@
 import binascii
 import json
-
 import ed25519
-
 from classes.requestHandler import RequestHandler
 from qbot_static import Static
 
