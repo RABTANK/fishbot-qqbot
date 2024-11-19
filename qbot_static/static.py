@@ -2,6 +2,7 @@ import json
 import os
 import requests
 import time
+from utils import *
 
 
 class Static:
@@ -17,7 +18,7 @@ class Static:
         pass
 
     async def get_access_token(self):
-        file_path = os.path.join(self.WORKPATH, "static/access_token.json")
+        file_path = os.path.join(self.WORKPATH, "qbot_static/access_token.json")
         if not os.path.exists(file_path):
             file = open(file_path, "w")
             file.close()
@@ -28,11 +29,12 @@ class Static:
         access_token = json.load(file)
         if access_token["get_time"] + int(access_token["expires_in"]) < time.time():
             await self._update_access_token()
+            access_token = json.load(file)
 
         return access_token["access_token"]
 
     async def _update_access_token(self):
-        file_path = os.path.join(self.WORKPATH, "static/access_token.json")
+        file_path = os.path.join(self.WORKPATH, "qbot_static/access_token.json")
         params = {
             "appId": str(self.APPID),  # 替换为实际的参数值
             "clientSecret": str(self.SECRET),  # 替换为实际的参数值
@@ -52,4 +54,4 @@ class Static:
                 json.dump(response_data, file, ensure_ascii=False, indent=4)
                 file.close()
         except Exception as e:
-            print(f"Error: {e}")
+            mylogger.error(f"Error sending message: {e}", exc_info=True)

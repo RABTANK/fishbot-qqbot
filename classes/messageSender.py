@@ -1,17 +1,8 @@
-import os
 import requests
-import json
-import logging
-from datetime import datetime
 from qbot_static import Static
+from utils import *
 
-# 配置日志记录器
-logging.basicConfig(level=logging.ERROR,
-                    format='%(asctime)s - %(levelname)s - %(message)s',
-                    handlers=[
-                        logging.FileHandler(os.path.join(Static.WORKPATH,(f"logs/err/{datetime.now().strftime('%Y%m%d')}.logs"))),
-                        logging.StreamHandler()
-                    ])
+# 配置
 
 class GroupMessageSender:
     def __init__(self, group=None, msg_type: int = None) -> None:
@@ -50,4 +41,4 @@ class GroupMessageSender:
             response_data = response.json()
             print("Response:", response_data)
         except Exception as e:
-            logging.error(f"Error sending message: {e}", exc_info=True)
+            mylogger.error(f"Error sending message: {e}", exc_info=True)

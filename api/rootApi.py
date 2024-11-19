@@ -1,21 +1,15 @@
 import asyncio
-from datetime import datetime
-import logging
 from flask import Blueprint, request
 from classes.commandHandler import CommandHandler
 from classes.messageHandler import GroupAtMessageHandler, create_message_handler
 from classes.requestHandler import RequestHandler
 from classes.messageSender import GroupMessageSender
-import methons.authentication.callbackAuthentication as callbackauth
+import utils.callbackAuthentication as callbackauth
 from qbot_static import Static
+import os
+from utils import get_logger
 
 root_bt = Blueprint("root", __name__)
-logging.basicConfig(level=logging.ERROR,
-                    format='%(asctime)s - %(levelname)s - %(message)s',
-                    handlers=[
-                        logging.FileHandler(os.path.join(Static.WORKPATH,(f"logs/err/{datetime.now().strftime('%Y%m%d')}.logs"))),
-                        logging.StreamHandler()
-                    ])
 
 
 def callbackHandler(handler):
@@ -47,5 +41,5 @@ def root():
 
         return "Request processed."
     except Exception as e:
-        logging.error(f"Error sending message: {e}", exc_info=True)
+        get_logger.error(f"Error sending message: {e}", exc_info=True)
         
