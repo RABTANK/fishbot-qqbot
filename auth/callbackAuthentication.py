@@ -2,7 +2,7 @@ import binascii
 import json
 import ed25519
 from classes.requestHandler import RequestHandler
-from qbot_static import Static
+from auth import Static
 
 
 def generate_signature(appid, secret, body, signature_hex, signature_timestamp, plain_token):

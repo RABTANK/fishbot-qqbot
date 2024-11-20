@@ -1,5 +1,5 @@
 import requests
-from qbot_static import Static
+from auth import Static
 from utils import *
 
 # 配置

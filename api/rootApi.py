@@ -3,10 +3,11 @@ from flask import Blueprint, request
 from classes.commandHandler import CommandHandler
 from classes.messageHandler import GroupAtMessageHandler, create_message_handler
 from classes.messageSender import GroupMessageSender
-import utils.callbackAuthentication as callbackauth
-from qbot_static import Static
+import auth.callbackAuthentication as callbackauth
+from auth import Static
 import os
-from utils import get_logger
+from classes.requestHandler import RequestHandler
+from utils import mylogger
 
 root_bt = Blueprint("root", __name__)
 
@@ -40,5 +41,5 @@ def root():
 
         return "Request processed."
     except Exception as e:
-        get_logger.error(f"Error sending message: {e}", exc_info=True)
+        mylogger.error(f"Error sending message: {e}", exc_info=True)
         

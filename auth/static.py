@@ -2,7 +2,6 @@ import json
 import os
 import time
 from utils import *
-
 import requests
 
 
@@ -19,7 +18,7 @@ class Static:
         pass
 
     async def get_access_token(self):
-        file_path = os.path.join(self.WORKPATH, "qbot_static/access_token.json")
+        file_path = os.path.join(self.WORKPATH, "auth/access_token.json")
         if not os.path.exists(file_path):
             file = open(file_path, "w")
             file.close()
@@ -35,7 +34,7 @@ class Static:
         return access_token["access_token"]
 
     async def _update_access_token(self):
-        file_path = os.path.join(self.WORKPATH, "qbot_static/access_token.json")
+        file_path = os.path.join(self.WORKPATH, "auth/access_token.json")
         params = {
             "appId": str(self.APPID),  # 替换为实际的参数值
             "clientSecret": str(self.SECRET),  # 替换为实际的参数值

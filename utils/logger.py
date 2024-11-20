@@ -1,11 +1,10 @@
 import logging
 from datetime import datetime
-from qbot_static import Static
 import os
 
 # 配置日志记录器
-log_directory = os.path.join(Static.WORKPATH,"logs") # 替换为你的日志目录
-log_filename = f"{datetime.now().strftime('%Y%m%d')}.logs"
+log_directory = os.path.join(os.getcwd(),"logs") # 替换为你的日志目录
+log_filename = f"{datetime.now().strftime('%Y%m%d')}.log"
 log_file_path = f"{log_directory}/{log_filename}"
 
 class LoggerSingleton:
@@ -35,3 +34,5 @@ class LoggerSingleton:
 def get_logger(name):
     LoggerSingleton.get_instance()
     return logging.getLogger(name)
+
+mylogger=get_logger(None)
