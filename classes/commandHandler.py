@@ -23,6 +23,7 @@ class CommandHandler:
 
     def execute_command(self):
         if self.command in functions:
+            print(f"执行函数：{self.command},参数：{self.args}")
             func = functions[self.command]
             return func(self.args)
         else:
