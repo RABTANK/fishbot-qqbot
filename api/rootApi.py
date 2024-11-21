@@ -34,7 +34,7 @@ def root():
         handler = RequestHandler()
         # 回调验证请求
         if handler.get_op() == 13:
-            return callbackauth.build_callback_body(handler)
+            return callbackauth.build_callback_auth_body(handler)
 
         if handler.get_op() == 0:
             callbackHandler(handler)

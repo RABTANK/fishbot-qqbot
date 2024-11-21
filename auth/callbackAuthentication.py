@@ -32,7 +32,7 @@ def generate_signature(appid, secret, body, signature_hex, signature_timestamp, 
     return json.dumps(response)
 
 
-def build_callback_body(handler: RequestHandler):
+def build_callback_auth_body(handler: RequestHandler):
     signature = generate_signature(Static.APPID, Static.SECRET, handler.get_body(), handler.get_signature_hex(),
                                    handler.get_signature_timestamp(), handler.get_plain_token())
     return signature

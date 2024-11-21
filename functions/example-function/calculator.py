@@ -10,7 +10,3 @@ def add(expression: list) -> str:
     total = sum(int(arg) for arg in expression)
     return str(total)
 
-
-
-
-# 手动指定前几个数字
