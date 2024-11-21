@@ -15,4 +15,30 @@ flask的蓝图文件，鉴于webhook方式仅仅会向一个特定的url发送�
 
  callbackAuthentication.py
 > callbackAuthentication仅仅包含回调验证的方法，在/api/rootApi.py中调用，一般只有第一次认证需要使用
-> ![图片](/readme-assets/Snipaste_2024-11-20_22-59-43.png)
+> ![图片](/readme-assets/img1.png)
+
+### /classes/
+各种类，目前重要的有：  
+requestHandler，用于处理QQbot的回调请求  
+messageSender，用于发送消息  
+commandHandler，用于识别和调用命令  
+messageHandler，用来处理接收到的消息
+
+### /functions/ 
+机器人的命令，写各种模块的
+
+### /functions/*/
+机器人的命令模块，每一个模块需要在__init__中导入方法并制作触发词和对应函数的dict，方法仅需要满足输入参数args:list,仅返回字符串即可，见/functions/example-function/
+
+### /utils/
+封装了一些常用代码，不太必要
+
+### /config.json
+保存了bot的"APPID"，和"SECRET"，以及"TOKEN"等参数，见/config_example.json,源文件仓库不给出（毕竟是自己的BOT）
+
+### /main.py
+程序入口
+
+### /test.py
+测试用，不必要
+    
