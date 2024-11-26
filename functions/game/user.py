@@ -11,3 +11,4 @@ def create_user(user_union_id:str):
     "status_wait_time": 0
 }
     DB.insert(USER_DATA_DB_PATH,"user",default_user)
+    

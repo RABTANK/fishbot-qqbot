@@ -1,6 +1,8 @@
+import random
 from .constants import *
 from utils import sqlite_handler as DB
 from utils.time_handler import *
+from .status import *
 
 
 def fish(user_id, args: list):
@@ -48,11 +50,32 @@ def fish(user_id, args: list):
             back = res
     else:
         input_spot = args[0]
-        sel = DB.select(STATIC_DB_PATH, "id", "fish_spot", [f'name="{input_spot}"'], 1)
+        sel = DB.select(STATIC_DB_PATH, "*", "fish_spot", [f'name="{input_spot}"'], 2)
         print(sel)
-        if len(sel) == 1:
-            spot_id = sel[0][0]
-        else:
+        if len(sel) != 1:
             back = "没有这个地点"
+        else:
+            spot = sel[0]
 
-    return back
+            set_status(
+                user_id,
+                100001,
+                spot.get("base_time"),
+                [spot.get("name"), spot.get("base_time")],
+            )
+            back = f"你来到了{spot.get('name')}"
+            back += f"\n——————————\n"
+            texts = json.loads(spot.get("texts"))
+
+            back += f"\n{random.choice(texts)}"
+            back += f"\n——————————\n"
+            back += (
+                str(DB.select(STATIC_DB_PATH, "text", "status", ["id=100001"], 1)[0][0])
+                .replace("#1#", spot.get("name"))
+                .replace("#2#", format_time(spot.get("base_time")))
+            )
+        return back
+
+
+def catch(user_id, args: list):
+    a = 1

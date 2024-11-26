@@ -13,7 +13,4 @@ def format_time(seconds: int) -> str:
     minutes = remaining_seconds // 60
     remaining_seconds = remaining_seconds % 60
 
-    if hours > 0:
-        return f"{hours}:{minutes:02d}:{remaining_seconds:02d}"
-    else:
-        return f"{minutes}:{remaining_seconds:02d}"
+    return f"{hours}:{minutes:02d}:{remaining_seconds:02d}"
