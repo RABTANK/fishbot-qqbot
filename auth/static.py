@@ -27,10 +27,13 @@ class Static:
 
         file = open(file_path, "r")
         access_token = json.load(file)
+        file.close()
         if access_token["get_time"] + int(access_token["expires_in"]) < time.time():
             await self._update_access_token()
+            file = open(file_path, "r")
             access_token = json.load(file)
-
+            file.close()
+            
         return access_token["access_token"]
 
     async def _update_access_token(self):
@@ -53,5 +56,6 @@ class Static:
             with open(file=file_path, mode="w", encoding="utf-8") as file:
                 json.dump(response_data, file, ensure_ascii=False, indent=4)
                 file.close()
+            return response_data
         except Exception as e:
             mylogger.error(f"Error sending message: {e}", exc_info=True)

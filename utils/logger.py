@@ -22,6 +22,8 @@ class LoggerSingleton:
         self.setup_logger()
 
     def setup_logger(self):
+        if not os.path.exists(log_directory):
+            os.makedirs(log_directory)
         logging.basicConfig(
             level=logging.ERROR,
             format='%(asctime)s - %(levelname)s - %(message)s',

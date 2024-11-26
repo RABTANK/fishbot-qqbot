@@ -4,3 +4,4 @@
 auth/access_token.json
 config.json
 /logs
+**/user_data.db

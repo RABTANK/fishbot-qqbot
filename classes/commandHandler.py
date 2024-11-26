@@ -25,6 +25,6 @@ class CommandHandler:
         if self.command in functions:
             print(f"执行函数：{self.command},参数：{self.args}")
             func = functions[self.command]
-            return func(self.args)
+            return func(self.user_union_id,self.args)
         else:
             return "Unknown command"

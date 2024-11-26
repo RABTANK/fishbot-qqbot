@@ -1,8 +1,8 @@
-from .logger import mylogger
+from .logger import get_logger
 import sqlite3
 
-
-def select(database: str,target: str = "*",table: str = None,condition: list = None,res_type: int = 0,):
+mylogger=get_logger("sqliteHandler")
+def select(database: str, target: str = "*", table: str = None, condition: list = None, res_type: int = 0):
     """
     查询数据库并返回指定格式的结果。
     Args:
@@ -13,22 +13,31 @@ def select(database: str,target: str = "*",table: str = None,condition: list = N
         res_type (int): 结果的返回类型。
             0: 元组列表
             1: 二重列表
+            2: 字典列表，键为列名，值为值
     Returns:
-        list: 查询结果，根据 `res_type` 参数的不同，返回元组列表或二重列表。
+        list: 查询结果，根据 `res_type` 参数的不同，返回元组列表、二重列表或字典列表。
     """
-    sql = "select {} from {} ".format(target, table)
+    sql = "SELECT {} FROM {}".format(target, table)
     if condition:
-        sql += "where {}".format(" and ".join(condition))
+        sql += " WHERE {}".format(" AND ".join(condition))
     conn = sqlite3.connect(database)
     cur = conn.cursor()
     cur.execute(sql)
     res = cur.fetchall()
+    # 获取列名
+    column_names = [description[0] for description in cur.description]
     conn.commit()
     conn.close()
-    if res_type == 1:
-        return [list(tup) for tup in res]
-    else:
+    print("sql查询：{}".format(sql))
+    
+    if res_type == 0:
         return res
+    elif res_type == 1:
+        return [list(tup) for tup in res]
+    elif res_type == 2:
+        return [dict(zip(column_names, row)) for row in res]
+    else:
+        raise ValueError("Invalid res_type. Valid values are 0, 1, or 2.")
 
 
 def insert(database: str, table: str, data: dict) -> bool:
