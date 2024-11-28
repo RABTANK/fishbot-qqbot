@@ -21,11 +21,12 @@ def status(user_id: str, args: list) -> str:
                 str(status_data.get("status_text"))
                 .replace("#1#", str(status_args[0]))
                 .replace(
-                    "#2#", format_time(int(start_time + wait_time - round(time.time(), 0)))
+                    "#2#",
+                    format_time(int(start_time + wait_time - round(time.time(), 0))),
                 )
             )
         else:
-            res=DB.select(STATIC_DB_PATH, "content", "text", [f'id={100004}'], 1)
+            res = DB.select(STATIC_DB_PATH, "content", "text", [f"id={100004}"], 1)
             back = res[0][0]
     return back
 
