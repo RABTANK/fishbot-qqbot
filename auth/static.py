@@ -43,7 +43,6 @@ class Static:
             "clientSecret": str(self.SECRET),  # 替换为实际的参数值
         }
         headers = {"Content-Type": "application/json"}
-        print("ok")
         try:
             response = requests.post(
                 "https://bots.qq.com/app/getAppAccessToken",

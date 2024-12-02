@@ -10,21 +10,18 @@ def status(user_id: str, args: list) -> str:
     status_data = get_status(user_id)
     # print(status_data)
     back = "出错啦，请等待管理员修复"
+    #!状态：空闲
     if status_data.get("status_id") == 100000:
         back = status_data.get("status_text")
+    #!状态：正在钓鱼
     if status_data.get("status_id") == 100001:
         start_time = int(status_data.get("status_start_time"))
         wait_time = int(status_data.get("status_wait_time"))
+        #!状态：钓鱼中
         if wait_time + start_time > round(time.time(), 0):
             status_args = json.loads(status_data.get("status_args"))
-            back = (
-                str(status_data.get("status_text"))
-                .replace("#1#", str(status_args[0]))
-                .replace(
-                    "#2#",
-                    format_time(int(start_time + wait_time - round(time.time(), 0))),
-                )
-            )
+            back = str(status_data.get("status_text")).replace("#1#", str(status_args[0])).replace("#2#", format_time(int(start_time + wait_time - round(time.time(), 0))))
+        #!状态：钓鱼已经完成
         else:
             res = DB.select(STATIC_DB_PATH, "content", "text", [f"id={100004}"], 1)
             back = res[0][0]
@@ -49,9 +46,7 @@ def get_status(user_id: str) -> dict:
     return res1
 
 
-def set_status(
-    user_id: str, status_id: int, wait_time: int = None, args: list = None
-) -> str:
+def set_status(user_id: str, status_id: int, wait_time: int = None, args: list = None) -> str:
     res1 = DB.select(USER_DATA_DB_PATH, "*", "user", [f'id="{user_id}"'], 2)
     if not res1:
         create_user(user_id)
@@ -76,8 +71,3 @@ def set_status(
             {"status_args": json.dumps(args)},
             [f'id="{user_id}"'],
         )
-
-
-def test(user_id: str, args: list = [100001]) -> str:
-    set_status(user_id, args[0])
-    return "test"

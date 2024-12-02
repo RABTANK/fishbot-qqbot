@@ -59,6 +59,7 @@ def insert(database: str, table: str, data: dict) -> bool:
         placeholders = ", ".join(["?"] * len(data))
         values = tuple(data.values())
         query = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
+        print("sql查询：{}".format(query))
         cursor.execute(query, values)
         conn.commit()
         cursor.close()
