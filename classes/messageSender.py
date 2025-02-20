@@ -17,6 +17,8 @@ class GroupMessageSender:
         self.ark = None
 
     async def send(self):
+        if self.message is None:
+            self.message = "出错了！请等待管理员修复"
         sta = Static()
         url = sta.API_BASE_URL + f"/v2/groups/{self.group}/messages"
         access_token = await sta.get_access_token()

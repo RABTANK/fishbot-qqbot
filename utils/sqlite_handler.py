@@ -20,24 +20,29 @@ def select(database: str, target: str = "*", table: str = None, condition: list 
     sql = "SELECT {} FROM {}".format(target, table)
     if condition:
         sql += " WHERE {}".format(" AND ".join(condition))
-    conn = sqlite3.connect(database)
-    cur = conn.cursor()
-    cur.execute(sql)
-    res = cur.fetchall()
-    # 获取列名
-    column_names = [description[0] for description in cur.description]
-    conn.commit()
-    conn.close()
-    print("sql查询：{}".format(sql))
     
-    if res_type == 0:
-        return res
-    elif res_type == 1:
-        return [list(tup) for tup in res]
-    elif res_type == 2:
-        return [dict(zip(column_names, row)) for row in res]
-    else:
-        raise ValueError("Invalid res_type. Valid values are 0, 1, or 2.")
+    try:
+        conn = sqlite3.connect(database)
+        cur = conn.cursor()
+        cur.execute(sql)
+        res = cur.fetchall()
+        # 获取列名
+        column_names = [description[0] for description in cur.description]
+        conn.commit()
+        conn.close()
+        
+        
+        if res_type == 0:
+            return res
+        elif res_type == 1:
+            return [list(tup) for tup in res]
+        elif res_type == 2:
+            return [dict(zip(column_names, row)) for row in res]
+        else:
+            raise ValueError("Invalid res_type. Valid values are 0, 1, or 2.")
+    except sqlite3.Error as e:
+        print("sql查询错误：{}".format(sql))
+        return None
 
 
 def insert(database: str, table: str, data: dict) -> bool:

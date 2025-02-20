@@ -1,7 +1,7 @@
 import random
 
 
-def add(user_id,expression: list) -> str:
+def add(user_id,expression: list,pre_message_id=None) -> str:
     if not expression:
         return "没有参数"
     non_digit_indices = [i + 1 for i, arg in enumerate(expression) if not arg.isdigit()]

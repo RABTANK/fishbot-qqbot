@@ -6,7 +6,7 @@ import time
 from utils.time_handler import *
 
 
-def status(user_id: str, args: list) -> str:
+def status(user_id: str, args: list, pre_message_id=None) -> str:
     status_data = get_status(user_id)
     # print(status_data)
     back = "出错啦，请等待管理员修复"
@@ -29,6 +29,21 @@ def status(user_id: str, args: list) -> str:
 
 
 def get_status(user_id: str) -> dict:
+    """
+    Returns:
+    status:{
+        'id': 'E5A64D3555CB04ECED1E3D5F80BBB7F9',
+        'name': '', 
+        'status_id': 100001,
+        'status_args': '["\\u8bad\\u7ec3\\u573a", 30]',
+        'status_start_time': 1733215122, 
+        'status_wait_time': 30, 
+        'status_sort': 10, 
+        'status_text': 'text',
+        'status_name': '钓鱼', 
+        'args_need': 2
+    }
+    """
     res1 = DB.select(USER_DATA_DB_PATH, "*", "user", [f'id="{user_id}"'], 2)
     if not res1:
         create_user(user_id)

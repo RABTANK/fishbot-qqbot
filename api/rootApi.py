@@ -17,7 +17,7 @@ def callbackHandler(handler):
     if type(mh) == GroupAtMessageHandler:
         mh.print_main_data()
         if mh.is_function_command():
-            command_handler = CommandHandler(mh.message_raw, mh.user_union_id)
+            command_handler = CommandHandler(mh.message_raw, mh.user_union_id,mh.message_id)
             back = command_handler.execute_command()
             msg_sender = GroupMessageSender(mh.group_id, 0)
             msg_sender.message = back
