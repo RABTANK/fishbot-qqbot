@@ -15,7 +15,7 @@ root_bt = Blueprint("root", __name__)
 def callbackHandler(handler):
     mh = create_message_handler(handler.get_body())
     if type(mh) == GroupAtMessageHandler:
-        mh.print_main_data()
+        mh.print_all_data()
         if mh.is_function_command():
             command_handler = CommandHandler(mh.message_raw, mh.user_union_id,mh.message_id)
             back = command_handler.execute_command()

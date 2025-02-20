@@ -26,6 +26,28 @@ class GroupAtMessageHandler(EventHandler):
     def print_main_data(self) -> None:
         print(f"group:{self.group_id} user_union_id:{self.user_union_id} message:{self.message_raw}")
 
+    def print_all_data(self) -> None:
+        """打印事件处理器的完整数据信息
+        
+        输出包含：
+            - 事件基础信息(id/op/type)
+            - 消息原始内容
+            - 时间戳
+            - 用户身份信息
+            - 群组信息
+            - 消息ID
+        """
+        print(f"""
+        Event ID: {self.id}
+        Operation: {self.op}
+        Message Type: {self.message_type}
+        Raw Message: {self.message_raw}
+        Timestamp: {self.timestamp}
+        User ID: {self.user_id}
+        Union ID: {self.user_union_id}
+        Group ID: {self.group_id}
+        Message ID: {self.message_id}
+        """)
 
 def create_message_handler(payload):
     t = payload.get("t")

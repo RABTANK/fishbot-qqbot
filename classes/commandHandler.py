@@ -1,5 +1,3 @@
-from functions import functions
-
 
 class CommandHandler:
     def __init__(self, raw, user_union_id,pre_message_id):
@@ -23,9 +21,4 @@ class CommandHandler:
         return len(self.args)
 
     def execute_command(self):
-        if self.command in functions:
-            print(f"执行函数：{self.command},参数：{self.args}")
-            func = functions[self.command]
-            return func(self.user_union_id,self.args,self.pre_message_id)
-        else:
-            return "Unknown command"
+        return 'ok'
