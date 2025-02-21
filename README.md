@@ -39,13 +39,6 @@ callbackAuthentication.py
 > commandHandler，用于识别和调用命令  
 > messageHandler，用来处理接收到的消息
 
-### /functions/
-
-> 机器人的命令，写各种模块的
-
-### /functions/\*/
-
-> 机器人的命令模块，每一个模块需要在**init**中导入方法并制作触发词和对应函数的 dict，方法仅需要满足输入参数 args:list,仅返回字符串即可，见/functions/example-function/
 
 ### /utils/
 

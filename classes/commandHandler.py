@@ -1,6 +1,18 @@
 
 class CommandHandler:
     def __init__(self, raw, user_union_id,pre_message_id):
+        """初始化命令处理器实例。
+        
+        Args:
+            raw (str): 用户发送的原始消息，以'/'开头的命令消息
+            user_union_id (str): 用户的唯一标识符
+            pre_message_id (int): 上一条消息的ID，用于消息链的上下文关联
+
+        初始化流程:
+            1. 去除原始消息首尾空格
+            2. 拆分命令和参数
+            3. 存储用户唯一ID和上条消息ID
+        """
         self.raw = raw.strip()
         parts = self.raw.split(maxsplit=1)
         self.command = parts[0][1:]  # 去掉斜杠
@@ -21,4 +33,5 @@ class CommandHandler:
         return len(self.args)
 
     def execute_command(self):
+        
         return 'ok'
