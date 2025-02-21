@@ -12,6 +12,7 @@ class Static:
     APPID = STATIC_DATA["APPID"]
     SECRET = STATIC_DATA["SECRET"]
     TOKEN = STATIC_DATA["TOKEN"]
+    PLUGS_URL= STATIC_DATA["PLUGS_URL"]
     API_BASE_URL = "https://api.sgroup.qq.com"
 
     def __init__(self) -> None:

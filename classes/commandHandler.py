@@ -1,4 +1,5 @@
-
+from auth.static import Static
+import requests
 class CommandHandler:
     def __init__(self, raw, user_union_id,pre_message_id):
         """初始化命令处理器实例。
@@ -33,5 +34,7 @@ class CommandHandler:
         return len(self.args)
 
     def execute_command(self):
-        
+        commands = [self.command] + self.args
+        response = requests.get(Static.PLUGS_URL,params={'command': commands}  )# requests会自动处理数组参数
+        print(f"响应内容：{response.text}")
         return 'ok'
